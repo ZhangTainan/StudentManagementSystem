@@ -1,7 +1,7 @@
 import json
 import re
 
-IS_LOGINED = False  # 引入全局变量记录登录状态
+IS_LOGIN = False  # 引入全局变量记录登录状态
 
 
 class User:
@@ -14,7 +14,7 @@ class User:
                 data = json.load(f)
                 users = data['users']
         except FileNotFoundError:
-            users=[]
+            users = []
         return users
 
     def register(self):
@@ -40,12 +40,12 @@ class User:
         self.register()
 
     def login(self):
-        global IS_LOGINED
+        global IS_LOGIN
         user_name = input('请输入用户名:')
         password = input('请输入密码:')
         for user in self.users:
             if user['user_name'] == user_name and user['password'] == password:
-                IS_LOGINED = True
+                IS_LOGIN = True
                 print('登录成功！')
                 break
         else:
@@ -55,7 +55,7 @@ class User:
     def login_authentication(self):  # 定义一个装饰器用于登录验证
         def decorator(func):
             def wrapper(*args, **kwargs):
-                if not IS_LOGINED:
+                if not IS_LOGIN:
                     print('您还未登录,请登录!')
                     self.login()
 

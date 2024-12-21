@@ -1,4 +1,3 @@
-# -*- coding: gbk -*-
 import csv
 from os import system
 import numpy as np
@@ -16,11 +15,13 @@ class Manager:
                 data = csv.reader(f)
                 while 1:
                     try:
-                        self.student_list.append(Student(*data.__next__()))  # ÓÃµü´úÆ÷·ÃÎÊÊı¾İ
+                        self.student_list.append(
+                            Student(*data.__next__()))  # ç”¨è¿­ä»£å™¨è®¿é—®æ•°æ®
                     except StopIteration:
                         break
         except FileNotFoundError:
-            print('ÎÄ¼ş²»´æÔÚ£¡¿ìÈ¥Ìí¼ÓÊı¾İ°É£¡')
+            print('æ–‡ä»¶ä¸å­˜åœ¨ï¼å¿«å»æ·»åŠ æ•°æ®å§ï¼')
+
     @user.login_authentication()
     def show_all(self):
         for student in self.student_list:
@@ -28,77 +29,87 @@ class Manager:
 
     @user.login_authentication()
     def add(self):
-        number = input('ÇëÊäÈëÑ§ºÅ:')
-        if number in map(lambda x:x.get_info()['Ñ§ºÅ'],self.student_list):
-            print('¸ÃÑ§ÉúÒÑ´æÔÚ£¡')
+        number = input('è¯·è¾“å…¥å­¦å·:')
+        if number in map(lambda x: x.get_info()['å­¦å·'], self.student_list):
+            print('è¯¥å­¦ç”Ÿå·²å­˜åœ¨ï¼')
             return
-        name = input('ÇëÊäÈëĞÕÃû:')
-        gender = input('ÇëÊäÈëĞÔ±ğ:')
-        age = int(input('ÇëÊäÈëÄêÁä:'))
-        Chinese = int(input('ÇëÊäÈëÓïÎÄ³É¼¨:'))
-        math = int(input('ÇëÊäÈëÊıÑ§³É¼¨:'))
-        self.student_list.append(Student(number, name, gender, age, Chinese, math))
+        name = input('è¯·è¾“å…¥å§“å:')
+        gender = input('è¯·è¾“å…¥æ€§åˆ«:')
+        age = int(input('è¯·è¾“å…¥å¹´é¾„:'))
+        Chinese = int(input('è¯·è¾“å…¥è¯­æ–‡æˆç»©:'))
+        math = int(input('è¯·è¾“å…¥æ•°å­¦æˆç»©:'))
+        self.student_list.append(
+            Student(number, name, gender, age, Chinese, math))
 
     @user.login_authentication()
     def delete(self):
-        number = input('ÇëÊäÈëÒªĞŞ¸ÄµÄÑ§ÉúµÄÑ§ºÅ:')
+        number = input('è¯·è¾“å…¥è¦ä¿®æ”¹çš„å­¦ç”Ÿçš„å­¦å·:')
         for student in self.student_list:
-            if number == student.get_info()['Ñ§ºÅ']:
+            if number == student.get_info()['å­¦å·']:
                 self.student_list.remove(student)
                 print(self.student_list)
                 break
         else:
-            print('Î´ÕÒµ½¸ÃÑ§Éú£¡')
+            print('æœªæ‰¾åˆ°è¯¥å­¦ç”Ÿï¼')
 
     @user.login_authentication()
     def modify(self):
-        number = input('ÇëÊäÈëÒªĞŞ¸ÄµÄÑ§ÉúµÄÑ§ºÅ:')
+        number = input('è¯·è¾“å…¥è¦ä¿®æ”¹çš„å­¦ç”Ÿçš„å­¦å·:')
         for student in self.student_list:
-            if number == student.get_info()['Ñ§ºÅ']:
+            if number == student.get_info()['å­¦å·']:
                 student.show_info()
-                student.get_info()['ĞÕÃû'] = input('ÇëÊäÈëĞŞ¸ÄºóµÄĞÕÃû:')
-                student.get_info()['ĞÔ±ğ'] = input('ÇëÊäÈëĞŞ¸ÄºóµÄĞÔ±ğ:')
-                student.get_info()['ÄêÁä'] = input('ÇëÊäÈëĞŞ¸ÄºóµÄÄêÁä:')
-                student.get_info()['ÓïÎÄ'] = int(input('ÇëÊäÈëĞŞ¸ÄºóµÄÓïÎÄ³É¼¨:'))
-                student.get_info()['ÊıÑ§'] = int(input('ÇëÊäÈëĞŞ¸ÄºóµÄÊıÑ§³É¼¨:'))
-                student.get_info()['×Ü·Ö'] = student.get_info()['ÓïÎÄ'] + student.get_info()['ÊıÑ§']
+                student.get_info()['å§“å'] = input('è¯·è¾“å…¥ä¿®æ”¹åçš„å§“å:')
+                student.get_info()['æ€§åˆ«'] = input('è¯·è¾“å…¥ä¿®æ”¹åçš„æ€§åˆ«:')
+                student.get_info()['å¹´é¾„'] = input('è¯·è¾“å…¥ä¿®æ”¹åçš„å¹´é¾„:')
+                student.get_info()['è¯­æ–‡'] = int(input('è¯·è¾“å…¥ä¿®æ”¹åçš„è¯­æ–‡æˆç»©:'))
+                student.get_info()['æ•°å­¦'] = int(input('è¯·è¾“å…¥ä¿®æ”¹åçš„æ•°å­¦æˆç»©:'))
+                student.get_info()['æ€»åˆ†'] = student.get_info()[
+                    'è¯­æ–‡'] + student.get_info()['æ•°å­¦']
                 break
         else:
-            print('Î´ÕÒµ½¸ÃÑ§Éú£¡')
+            print('æœªæ‰¾åˆ°è¯¥å­¦ç”Ÿï¼')
 
     @user.login_authentication()
     def inquiry(self):
-        number = input('ÇëÊäÈëÒª²éÑ¯µÄÑ§ÉúµÄÑ§ºÅ:')
+        number = input('è¯·è¾“å…¥è¦æŸ¥è¯¢çš„å­¦ç”Ÿçš„å­¦å·:')
         for student in self.student_list:
-            if number == student.get_info()['Ñ§ºÅ']:
+            if number == student.get_info()['å­¦å·']:
                 student.show_info()
                 break
         else:
-            print('Î´ÕÒµ½¸ÃÑ§Éú£¡')
+            print('æœªæ‰¾åˆ°è¯¥å­¦ç”Ÿï¼')
 
     @user.login_authentication()
     def average(self):
-        avg_Chinese = np.average(list(map(lambda x: x.get_info()['ÓïÎÄ'], self.student_list)))
-        avg_math = np.average(list(map(lambda x: x.get_info()['ÊıÑ§'], self.student_list)))
-        avg_total = np.average(list(map(lambda x: x.get_info()['×Ü·Ö'], self.student_list)))
-        print(f'ÓïÎÄµÄÆ½¾ù·ÖÎª:{avg_Chinese}')
-        print(f'ÊıÑ§µÄÆ½¾ù·ÖÎª:{avg_math}')
-        print(f'×Ü·ÖµÄÆ½¾ù·ÖÎª:{avg_total}')
+        avg_Chinese = np.average(
+            list(map(lambda x: x.get_info()['è¯­æ–‡'], self.student_list)))
+        avg_math = np.average(
+            list(map(lambda x: x.get_info()['æ•°å­¦'], self.student_list)))
+        avg_total = np.average(
+            list(map(lambda x: x.get_info()['æ€»åˆ†'], self.student_list)))
+        print(f'è¯­æ–‡çš„å¹³å‡åˆ†ä¸º:{avg_Chinese}')
+        print(f'æ•°å­¦çš„å¹³å‡åˆ†ä¸º:{avg_math}')
+        print(f'æ€»åˆ†çš„å¹³å‡åˆ†ä¸º:{avg_total}')
 
     @user.login_authentication()
     def rank(self):
-        order_list = sorted(self.student_list, key=lambda x: x.get_info()['×Ü·Ö'], reverse=True)
+        order_list = sorted(self.student_list, key=lambda x: x.get_info()[
+                            'æ€»åˆ†'], reverse=True)
         for student in order_list:
-            print(f'ĞÕÃû:{student.get_info()["ĞÕÃû"]}\t×Ü·Ö:{student.get_info()["×Ü·Ö"]}\tÅÅÃû:{order_list.index(student) + 1}')
+            print(
+                f'å§“å:{student.get_info()["å§“å"]}\tæ€»åˆ†:{student.get_info()["æ€»åˆ†"]}\tæ’å:{order_list.index(student) + 1}')
 
     @user.login_authentication()
     def variance(self):
-        var_Chinese = np.var(list(map(lambda x: x.get_info()['ÓïÎÄ'], self.student_list)))
-        var_math = np.var(list(map(lambda x: x.get_info()['ÊıÑ§'], self.student_list)))
-        var_total = np.var(list(map(lambda x: x.get_info()['×Ü·Ö'], self.student_list)))
-        print(f'ÓïÎÄµÄ·½²îÎª:{var_Chinese}')
-        print(f'ÊıÑ§µÄ·½²îÎª:{var_math}')
-        print(f'×Ü·ÖµÄ·½²îÎª:{var_total}')
+        var_Chinese = np.var(
+            list(map(lambda x: x.get_info()['è¯­æ–‡'], self.student_list)))
+        var_math = np.var(
+            list(map(lambda x: x.get_info()['æ•°å­¦'], self.student_list)))
+        var_total = np.var(
+            list(map(lambda x: x.get_info()['æ€»åˆ†'], self.student_list)))
+        print(f'è¯­æ–‡çš„æ–¹å·®ä¸º:{var_Chinese}')
+        print(f'æ•°å­¦çš„æ–¹å·®ä¸º:{var_math}')
+        print(f'æ€»åˆ†çš„æ–¹å·®ä¸º:{var_total}')
 
     def save_data(self):
         with open('data.csv', 'w', newline='') as f:
@@ -110,7 +121,7 @@ class Manager:
     def execute(self):
         try:
             while 1:
-                cmd = yield  # Éú³ÉÆ÷
+                cmd = yield  # ç”Ÿæˆå™¨
                 if cmd == '1':
                     self.user.login()
                     system('pause')
@@ -142,27 +153,35 @@ class Manager:
                     self.rank()
                     system('pause')
                 elif cmd == 'q':
-                    print('ÒÑÍË³ö£¡')
+                    print('å·²é€€å‡ºï¼')
                     break
 
                 else:
-                    print('ÇëÊäÈëÕıÈ·µÄÃüÁî')
+                    print('è¯·è¾“å…¥æ­£ç¡®çš„å‘½ä»¤')
             self.save_data()
         except ValueError:
-            print('³ö´íÀ²£¡ÄêÁä¡¢ÓïÎÄºÍÊıÑ§³É¼¨±ØĞëÊÇÊı×Ö£¡')
+            print('å‡ºé”™å•¦ï¼å¹´é¾„ã€è¯­æ–‡å’Œæ•°å­¦æˆç»©å¿…é¡»æ˜¯æ•°å­—ï¼')
             self.main()
             '''
-                Òì³£²¶»ñ,µ±ÓÃ»§ÊäÈëÄêÁäÎª·ÇÊı×ÖÊ±¸ø³ö·´À¡,²¢ÖØĞÂÖ´ĞĞÖ÷º¯Êı
+                å¼‚å¸¸æ•è·,å½“ç”¨æˆ·è¾“å…¥å¹´é¾„ä¸ºéæ•°å­—æ—¶ç»™å‡ºåé¦ˆ,å¹¶é‡æ–°æ‰§è¡Œä¸»å‡½æ•°
             '''
 
     def main(self):
         exe = self.execute()
         exe.send(None)
         while 1:
-            print('1µÇÂ¼\t2×¢²á\n3Ìí¼ÓÑ§Éú\t4É¾³ıÑ§Éú\n5ĞŞ¸ÄÑ§Éú\t6²é¿´Ñ§Éú\n7ÏÔÊ¾È«²¿\t8ËãÆ½¾ùÖµ\n9¼ÆËã·½²î\t10ÅÅÃû\nqÍË³ö\nÇëÊäÈëÃüÁîĞòºÅ:')
+            print('''
+==============================
+1ç”¨æˆ·ç™»å½•       2ç”¨æˆ·æ³¨å†Œ
+3æ·»åŠ å­¦ç”Ÿ       4åˆ é™¤å­¦ç”Ÿ
+5ä¿®æ”¹å­¦ç”Ÿ       6æŸ¥çœ‹å­¦ç”Ÿ
+7æ˜¾ç¤ºå…¨éƒ¨       8ç®—å¹³å‡å€¼
+9è®¡ç®—æ–¹å·®       10å­¦ç”Ÿæ’å
+Qé€€å‡º
+è¯·è¾“å…¥å‘½ä»¤åºå·åå›è½¦:''')
             cmd = input()
             try:
-                exe.send(cmd)  # Ğ­³Ì
+                exe.send(cmd)  # åç¨‹
             except StopIteration:
                 break
 

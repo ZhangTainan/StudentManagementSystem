@@ -1,6 +1,7 @@
 class Student:
     def __init__(self, number, name, gender, age, Chinese, math):
-        self.__info = {'学号': number, '姓名': name, '性别': gender, '年龄': int(age), '语文': int(Chinese), '数学': int(math)}
+        self.__info = {'学号': number, '姓名': name, '性别': gender,
+                       '年龄': int(age), '语文': int(Chinese), '数学': int(math)}
         # 把学生信息私有化,使其只在内部被访问和修改
         self.__info['总分'] = self.__info['语文'] + self.__info['数学']
 
